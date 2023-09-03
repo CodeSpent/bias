@@ -1,0 +1,15 @@
+# Use the official PostgreSQL image as the base
+FROM postgres:latest
+
+# Generate a random password and set it as the environment variable
+#RUN POSTGRES_PASSWORD=$(pwgen -s 32 1) && echo "POSTGRES_PASSWORD=$POSTGRES_PASSWORD" >> /tmp/env_file
+
+# Set environment variables for PostgreSQL configuration from the temporary file
+#ENV POSTGRES_DB=postgres
+#ENV POSTGRES_USER=root
+
+# Expose PostgreSQL port
+EXPOSE 5432
+
+# Start the PostgreSQL server using the official entrypoint
+CMD ["postgres"]

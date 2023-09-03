@@ -1,0 +1,17 @@
+# Use the official MongoDB image as the base
+FROM mongo:latest
+
+# Set the working directory
+WORKDIR /docker/mongodb
+
+# Copy your entrypoint script into the container
+COPY entrypoint.sh .
+
+# Make the entrypoint script executable
+RUN chmod +x entrypoint.sh
+
+# Set the entrypoint to your script
+ENTRYPOINT ["./entrypoint.sh"]
+
+# Start the MongoDB server
+CMD ["mongod", "--bind_ip_all"]

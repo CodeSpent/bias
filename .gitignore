@@ -1,0 +1,63 @@
+# Compiled binary files
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Go binaries and build cache
+*.exe
+*.test
+*.prof
+*.out
+_build/
+_dist/
+vendor/
+.cache/
+.buildcache/
+
+# Go logs and test results
+*.log
+*.log.*
+*.test
+
+# Environment variables
+*.env
+!.env.example
+
+# Bias CLI config files
+cli/config.yaml
+
+# Swagger docs
+docs/swagger.*
+
+# IDE and text editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+**/*.conf
+
+# Compiled Go files
+*.o
+*.a
+
+# Dependency directories
+Godeps/
+Godeps-bin/
+**/vendor/
+**/node_modules/
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+liteide_coverage
+
+# OSX specific files
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# GoReleaser
+dist/

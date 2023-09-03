@@ -1,0 +1,62 @@
+package handlers
+
+import (
+    "Ancilla/api/models"
+    "Ancilla/api/store"
+    "github.com/labstack/echo/v4"
+    "net/http"
+)
+
+// {{.EntityTitle}}Handler handles {{.EntityTitle}} related operations.
+type {{.EntityTitle}}Handler struct {
+    *BaseHandler
+    {{.EntityName}}Store *store.{{.EntityTitle}}Store
+}
+
+// New{{.EntityTitle}}Handler creates a new {{.EntityTitle}}Handler instance.
+func New{{.EntityTitle}}Handler(ss *store.{{.EntityTitle}}Store) *{{.EntityTitle}}Handler {
+    return &{{.EntityTitle}}Handler{
+        BaseHandler:       &BaseHandler{},
+        {{.EntityName}}Store: ss,
+    }
+}
+
+// Create{{.EntityTitle}} creates a new {{.EntityTitle}}.
+func (h *{{.EntityTitle}}Handler) Create{{.EntityTitle}}(c echo.Context) error {
+    var {{.EntityName}} models.{{.EntityTitle}}
+    if err := c.Bind(&{{.EntityName}}); err != nil {
+        return h.ErrorResponse(c, http.StatusBadRequest, err)
+    }
+
+    err := h.{{.EntityName}}Store.Create{{.EntityTitle}}(&{{.EntityName}})
+    if err != nil {
+        return h.ErrorResponse(c, http.StatusInternalServerError, err)
+    }
+
+    return h.SuccessResponse(c, http.StatusCreated, {{.EntityName}})
+}
+
+// Get{{.EntityTitle}}ByID retrieves a {{.EntityTitle}} by ID.
+func (h *{{.EntityTitle}}Handler) Get{{.EntityTitle}}ByID(c echo.Context) error {
+    {{.EntityName}}ID := c.QueryParam("id")
+    if {{.EntityName}}ID == "" {
+        return h.ErrorResponse(c, http.StatusBadRequest, echo.NewHTTPError(http.StatusBadRequest, "{{.EntityTitle}} ID is required"))
+    }
+
+    {{.EntityName}}, err := h.{{.EntityName}}Store.Get{{.EntityTitle}}ByID({{.EntityName}}ID)
+    if err != nil {
+        return h.ErrorResponse(c, http.StatusInternalServerError, err)
+    }
+
+    return h.SuccessResponse(c, http.StatusOK, {{.EntityName}})
+}
+
+// GetAll{{.EntityTitle}} retrieves all {{.EntityTitle}}s.
+func (h *{{.EntityTitle}}Handler) GetAll{{.EntityTitle}}(c echo.Context) error {
+    {{.EntityName}}s, err := h.{{.EntityName}}Store.GetAll{{.EntityTitle}}s()
+    if err != nil {
+        return h.ErrorResponse(c, http.StatusInternalServerError, err)
+    }
+
+    return h.SuccessResponse(c, http.StatusOK, {{.EntityName}}s)
+}
